@@ -1,0 +1,122 @@
+{
+    "data_2024-02-18_07-00-00.csv": {
+        "hr": {
+            "snippet_hr_2.npy": 13.564659966250536,
+            "snippet_hr_0.npy": 3.872983346207417,
+            "snippet_hr_1.npy": 85.03528679318957
+        },
+        "motion": {
+            "snippet_motion_2.npy": 3.6526034794541116,
+            "snippet_motion_0.npy": 26.39061921826528,
+            "snippet_motion_1.npy": 5.42437539582936
+        }
+    },
+    "data_2024-02-18_05-00-00.csv": {
+        "hr": {
+            "snippet_hr_2.npy": 23.979157616563597,
+            "snippet_hr_0.npy": 15.491933384829668,
+            "snippet_hr_1.npy": 54.101755978895916
+        },
+        "motion": {
+            "snippet_motion_2.npy": 2.2384019594011453,
+            "snippet_motion_0.npy": 3.865628971854857,
+            "snippet_motion_1.npy": 0.8356290459660295
+        }
+    },
+    "data_2024-02-18_03-00-00.csv": {
+        "hr": {
+            "snippet_hr_2.npy": 28.687976575562104,
+            "snippet_hr_0.npy": 3.872983346207417,
+            "snippet_hr_1.npy": 145.37881551312762
+        },
+        "motion": {
+            "snippet_motion_2.npy": 0.6591630084583021,
+            "snippet_motion_0.npy": 9.623931097380037,
+            "snippet_motion_1.npy": 7.549037016144767
+        }
+    },
+    "data_2024-02-17_22-00-00.csv": {
+        "hr": {
+            "snippet_hr_2.npy": 44.710177812216315,
+            "snippet_hr_0.npy": 131.68143377105218,
+            "snippet_hr_1.npy": 5.291502622129181
+        },
+        "motion": {
+            "snippet_motion_2.npy": 11.025117266774258,
+            "snippet_motion_0.npy": 5.709760882609927,
+            "snippet_motion_1.npy": 6.595161785013552
+        }
+    },
+    "data_2024-02-18_02-00-00.csv": {
+        "hr": {
+            "snippet_hr_2.npy": 7.937253933193772,
+            "snippet_hr_0.npy": 170.41126723312635,
+            "snippet_hr_1.npy": 201.69035673526884
+        },
+        "motion": {
+            "snippet_motion_2.npy": 9.247151806711967,
+            "snippet_motion_0.npy": 5.730241476027507,
+            "snippet_motion_1.npy": 2.9806418389831975
+        }
+    },
+    "data_2024-02-17_23-00-00.csv": {
+        "hr": {
+            "snippet_hr_2.npy": 16.852299546352718,
+            "snippet_hr_0.npy": 42.60281680828159,
+            "snippet_hr_1.npy": 63.7808748764079
+        },
+        "motion": {
+            "snippet_motion_2.npy": 5.588621183538722,
+            "snippet_motion_0.npy": 6.809802414947291,
+            "snippet_motion_1.npy": 8.952289157953869
+        }
+    },
+    "data_2024-02-18_01-00-00.csv": {
+        "hr": {
+            "snippet_hr_2.npy": 18.734993995195193,
+            "snippet_hr_0.npy": 3.872983346207417,
+            "snippet_hr_1.npy": 50.75431016179808
+        },
+        "motion": {
+            "snippet_motion_2.npy": 1.276760138223361,
+            "snippet_motion_0.npy": 0.5375513141421798,
+            "snippet_motion_1.npy": 0.2150694905620527
+        }
+    },
+    "data_2024-02-18_04-00-00.csv": {
+        "hr": {
+            "snippet_hr_2.npy": 59.93329625508679,
+            "snippet_hr_0.npy": 77.45966692414834,
+            "snippet_hr_1.npy": 46.37887450122092
+        },
+        "motion": {
+            "snippet_motion_2.npy": 3.364266001050858,
+            "snippet_motion_0.npy": 8.961476243089471,
+            "snippet_motion_1.npy": 3.7353919462415965
+        }
+    },
+    "data_2024-02-18_06-00-00.csv": {
+        "hr": {
+            "snippet_hr_2.npy": 15.231546211727817,
+            "snippet_hr_0.npy": 11.61895003862225,
+            "snippet_hr_1.npy": 20.0
+        },
+        "motion": {
+            "snippet_motion_2.npy": 0.8472953283541005,
+            "snippet_motion_0.npy": 10.528962398450776,
+            "snippet_motion_1.npy": 9.090993762743988
+        }
+    },
+    "data_2024-02-18_00-00-00.csv": {
+        "hr": {
+            "snippet_hr_2.npy": 42.0,
+            "snippet_hr_0.npy": 65.84071688552609,
+            "snippet_hr_1.npy": 51.6817182376902
+        },
+        "motion": {
+            "snippet_motion_2.npy": 3.4560393383284045,
+            "snippet_motion_0.npy": 2.3748469424747203,
+            "snippet_motion_1.npy": 12.892170084532415
+        }
+    }
+}
