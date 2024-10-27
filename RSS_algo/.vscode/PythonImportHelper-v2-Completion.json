@@ -1,0 +1,133 @@
+[
+    {
+        "label": "streamlit",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "streamlit",
+        "description": "streamlit",
+        "detail": "streamlit",
+        "documentation": {}
+    },
+    {
+        "label": "plotly.graph_objects",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "plotly.graph_objects",
+        "description": "plotly.graph_objects",
+        "detail": "plotly.graph_objects",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "mode",
+        "importPath": "scipy.stats",
+        "description": "scipy.stats",
+        "isExtraImport": true,
+        "detail": "scipy.stats",
+        "documentation": {}
+    },
+    {
+        "label": "MiniBatchKMeans",
+        "importPath": "sklearn.cluster",
+        "description": "sklearn.cluster",
+        "isExtraImport": true,
+        "detail": "sklearn.cluster",
+        "documentation": {}
+    },
+    {
+        "label": "norm",
+        "importPath": "numpy.linalg",
+        "description": "numpy.linalg",
+        "isExtraImport": true,
+        "detail": "numpy.linalg",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "importPath": "time",
+        "description": "time",
+        "isExtraImport": true,
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "get_freq",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_freq(df):\n    time_idx = df.time\n    mean_sample_interval = time_idx.rolling(2).aggregate(lambda ts: ts.values[1] - ts.values[0]).mean()\n    return 1 / mean_sample_interval\ndef get_clustered_profiles(T, m, num_clusters, selection_method=\"medoid\", num_nearest=3):\n    segments = np.array([T[i: i + m] for i in range(len(T) - m + 1)])\n    kmeans = MiniBatchKMeans(n_clusters=num_clusters, random_state=0).fit(segments)\n    centroids = kmeans.cluster_centers_\n    closest_snippets = []\n    for center_idx, center in enumerate(centroids):",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_clustered_profiles",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_clustered_profiles(T, m, num_clusters, selection_method=\"medoid\", num_nearest=3):\n    segments = np.array([T[i: i + m] for i in range(len(T) - m + 1)])\n    kmeans = MiniBatchKMeans(n_clusters=num_clusters, random_state=0).fit(segments)\n    centroids = kmeans.cluster_centers_\n    closest_snippets = []\n    for center_idx, center in enumerate(centroids):\n        distances = np.linalg.norm(segments - center, axis=1)\n        if selection_method == \"medoid\":\n            closest_snippet_idx = np.argmin(distances)\n            closest_snippets.append(closest_snippet_idx)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "find_snippet_positions",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def find_snippet_positions(ts, snippet, subseq_size):\n    positions = []\n    snippet_size = len(snippet)\n    i = 0\n    while i <= len(ts) - snippet_size:\n        window = ts[i:i + snippet_size]\n        if np.array_equal(window, snippet):\n            positions.append(i)\n            i += snippet_size\n        else:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "data_dir",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "data_dir = \"/home/gui/SnippetFinder/time_cuts\"\navailable_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]\nselected_file = st.selectbox(\"Selecione o arquivo CSV\", available_files)\n# Carregar o arquivo selecionado\nif selected_file:\n    df = pd.read_csv(os.path.join(data_dir, selected_file))\n    df['time'] = pd.to_datetime(df['timestamp']).dt.time\n    df['bpm'] = df['HEART_RATE(bpm)'].replace(0.0, np.nan)\n    df.dropna(subset=['bpm'], inplace=True)\n    # Seleção de parâmetros",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "available_files",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "available_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]\nselected_file = st.selectbox(\"Selecione o arquivo CSV\", available_files)\n# Carregar o arquivo selecionado\nif selected_file:\n    df = pd.read_csv(os.path.join(data_dir, selected_file))\n    df['time'] = pd.to_datetime(df['timestamp']).dt.time\n    df['bpm'] = df['HEART_RATE(bpm)'].replace(0.0, np.nan)\n    df.dropna(subset=['bpm'], inplace=True)\n    # Seleção de parâmetros\n    series_col = st.selectbox(\"Selecione a Série Temporal\", [\"bpm\", \"magnitude\"])",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "selected_file",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "selected_file = st.selectbox(\"Selecione o arquivo CSV\", available_files)\n# Carregar o arquivo selecionado\nif selected_file:\n    df = pd.read_csv(os.path.join(data_dir, selected_file))\n    df['time'] = pd.to_datetime(df['timestamp']).dt.time\n    df['bpm'] = df['HEART_RATE(bpm)'].replace(0.0, np.nan)\n    df.dropna(subset=['bpm'], inplace=True)\n    # Seleção de parâmetros\n    series_col = st.selectbox(\"Selecione a Série Temporal\", [\"bpm\", \"magnitude\"])\n    calculation_method = st.selectbox(\"Método de Cálculo para Motion\", [\"norm\", \"enmo\"]) if series_col == \"magnitude\" else None",
+        "detail": "main",
+        "documentation": {}
+    }
+]
