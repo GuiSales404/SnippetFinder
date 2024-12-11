@@ -1,0 +1,119 @@
+[
+    {
+        "label": "streamlit",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "streamlit",
+        "description": "streamlit",
+        "detail": "streamlit",
+        "documentation": {}
+    },
+    {
+        "label": "plotly.graph_objects",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "plotly.graph_objects",
+        "description": "plotly.graph_objects",
+        "detail": "plotly.graph_objects",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "data_dir",
+        "kind": 5,
+        "importPath": "cover_area",
+        "description": "cover_area",
+        "peekOfCode": "data_dir = \"/home/gui/SnippetFinder/time_cuts\"\nst.title(\"Visualizador de Gráfico com Janela Deslizante e Busca de Snippet\")\n# Dados iniciais para visualização de hr e motion\nwith open(\"/home/gui/SnippetFinder/area_de_cobertura/dtw_results.json\", 'r') as f:\n    snippet_data = json.load(f)\n# Seleção de arquivo e categoria (hr ou motion) para o gráfico de barras\nfile_options = list(snippet_data.keys())\nfile_choice = st.selectbox(\"Selecione o arquivo para visualizar\", file_options)\ncategory_choice = st.selectbox(\"Selecione a categoria\", [\"hr\", \"motion\"])\n# Gráfico de barras para hr ou motion baseado na seleção",
+        "detail": "cover_area",
+        "documentation": {}
+    },
+    {
+        "label": "file_options",
+        "kind": 5,
+        "importPath": "cover_area",
+        "description": "cover_area",
+        "peekOfCode": "file_options = list(snippet_data.keys())\nfile_choice = st.selectbox(\"Selecione o arquivo para visualizar\", file_options)\ncategory_choice = st.selectbox(\"Selecione a categoria\", [\"hr\", \"motion\"])\n# Gráfico de barras para hr ou motion baseado na seleção\nst.subheader(\"Visualização de Dados de hr e motion\")\nfig_bar = go.Figure()\nif file_choice and category_choice:\n    snippets = snippet_data[file_choice][category_choice]\n    for snippet, value in snippets.items():\n        fig_bar.add_trace(go.Bar(",
+        "detail": "cover_area",
+        "documentation": {}
+    },
+    {
+        "label": "file_choice",
+        "kind": 5,
+        "importPath": "cover_area",
+        "description": "cover_area",
+        "peekOfCode": "file_choice = st.selectbox(\"Selecione o arquivo para visualizar\", file_options)\ncategory_choice = st.selectbox(\"Selecione a categoria\", [\"hr\", \"motion\"])\n# Gráfico de barras para hr ou motion baseado na seleção\nst.subheader(\"Visualização de Dados de hr e motion\")\nfig_bar = go.Figure()\nif file_choice and category_choice:\n    snippets = snippet_data[file_choice][category_choice]\n    for snippet, value in snippets.items():\n        fig_bar.add_trace(go.Bar(\n            x=[file_choice],",
+        "detail": "cover_area",
+        "documentation": {}
+    },
+    {
+        "label": "category_choice",
+        "kind": 5,
+        "importPath": "cover_area",
+        "description": "cover_area",
+        "peekOfCode": "category_choice = st.selectbox(\"Selecione a categoria\", [\"hr\", \"motion\"])\n# Gráfico de barras para hr ou motion baseado na seleção\nst.subheader(\"Visualização de Dados de hr e motion\")\nfig_bar = go.Figure()\nif file_choice and category_choice:\n    snippets = snippet_data[file_choice][category_choice]\n    for snippet, value in snippets.items():\n        fig_bar.add_trace(go.Bar(\n            x=[file_choice],\n            y=[value],",
+        "detail": "cover_area",
+        "documentation": {}
+    },
+    {
+        "label": "fig_bar",
+        "kind": 5,
+        "importPath": "cover_area",
+        "description": "cover_area",
+        "peekOfCode": "fig_bar = go.Figure()\nif file_choice and category_choice:\n    snippets = snippet_data[file_choice][category_choice]\n    for snippet, value in snippets.items():\n        fig_bar.add_trace(go.Bar(\n            x=[file_choice],\n            y=[value],\n            name=f\"{category_choice} - {snippet}\",\n            hoverinfo=\"y+name\",\n            marker=dict(line=dict(width=0.8))",
+        "detail": "cover_area",
+        "documentation": {}
+    },
+    {
+        "label": "csv_files",
+        "kind": 5,
+        "importPath": "cover_area",
+        "description": "cover_area",
+        "peekOfCode": "csv_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]\ncsv_file_choice = st.selectbox(\"Selecione o arquivo CSV para visualizar\", csv_files)\n# Leitura do arquivo CSV selecionado e plotagem do gráfico completo\nif csv_file_choice:\n    df = pd.read_csv(os.path.join(data_dir, csv_file_choice))\n    df['date'] = pd.to_datetime(df['date']).dt.time\n    fig_full = go.Figure()\n    fig_full.add_trace(go.Scatter(x=df[\"date\"], y=df[\"HEART_RATE(bpm)\"], mode=\"lines\", name=\"Dados completos\"))\n    # Upload e busca de snippet\n    uploaded_file = st.file_uploader(\"Faça upload do arquivo .npy com o snippet de padrão para busca\", type=\"npy\")",
+        "detail": "cover_area",
+        "documentation": {}
+    },
+    {
+        "label": "csv_file_choice",
+        "kind": 5,
+        "importPath": "cover_area",
+        "description": "cover_area",
+        "peekOfCode": "csv_file_choice = st.selectbox(\"Selecione o arquivo CSV para visualizar\", csv_files)\n# Leitura do arquivo CSV selecionado e plotagem do gráfico completo\nif csv_file_choice:\n    df = pd.read_csv(os.path.join(data_dir, csv_file_choice))\n    df['date'] = pd.to_datetime(df['date']).dt.time\n    fig_full = go.Figure()\n    fig_full.add_trace(go.Scatter(x=df[\"date\"], y=df[\"HEART_RATE(bpm)\"], mode=\"lines\", name=\"Dados completos\"))\n    # Upload e busca de snippet\n    uploaded_file = st.file_uploader(\"Faça upload do arquivo .npy com o snippet de padrão para busca\", type=\"npy\")\n    matches = []",
+        "detail": "cover_area",
+        "documentation": {}
+    }
+]

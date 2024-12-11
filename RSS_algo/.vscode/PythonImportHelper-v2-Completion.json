@@ -77,6 +77,15 @@
         "documentation": {}
     },
     {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
         "label": "get_freq",
         "kind": 2,
         "importPath": "main",
@@ -99,7 +108,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def find_snippet_positions(ts, snippet, subseq_size):\n    positions = []\n    snippet_size = len(snippet)\n    i = 0\n    while i <= len(ts) - snippet_size:\n        window = ts[i:i + snippet_size]\n        if np.array_equal(window, snippet):\n            positions.append(i)\n            i += snippet_size\n        else:",
+        "peekOfCode": "def find_snippet_positions(ts, snippet, subseq_size, tolerance=0):\n    positions = []\n    snippet_size = len(snippet)\n    i = 0\n    while i <= len(ts) - snippet_size:\n        window = ts[i:i + snippet_size]\n        # Verificar se todos os valores da janela estão dentro da tolerância em relação ao snippet\n        if np.all(np.abs(window - snippet) <= tolerance):\n            positions.append(i)\n            i += snippet_size",
         "detail": "main",
         "documentation": {}
     },
@@ -117,7 +126,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "available_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]\nselected_file = st.selectbox(\"Selecione o arquivo CSV\", available_files)\n# Carregar o arquivo selecionado\nif selected_file:\n    df = pd.read_csv(os.path.join(data_dir, selected_file))\n    df['time'] = pd.to_datetime(df['timestamp']).dt.time\n    df['bpm'] = df['HEART_RATE(bpm)'].replace(0.0, np.nan)\n    df.dropna(subset=['bpm'], inplace=True)\n    # Seleção de parâmetros\n    series_col = st.selectbox(\"Selecione a Série Temporal\", [\"bpm\", \"magnitude\"])",
+        "peekOfCode": "available_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]\nselected_file = st.selectbox(\"Selecione o arquivo CSV\", available_files)\n# Carregar o arquivo selecionado\nif selected_file:\n    df = pd.read_csv(os.path.join(data_dir, selected_file))\n    df['time'] = pd.to_datetime(df['timestamp']).dt.time\n    df['bpm'] = df['HEART_RATE(bpm)'].replace(0.0, np.nan)\n    df.dropna(subset=['bpm'], inplace=True)\n    # Seleção de parâmetros\n    series_col = st.selectbox(\"Select Time Series\", [\"bpm\", \"magnitude\"])",
         "detail": "main",
         "documentation": {}
     },
@@ -126,7 +135,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "selected_file = st.selectbox(\"Selecione o arquivo CSV\", available_files)\n# Carregar o arquivo selecionado\nif selected_file:\n    df = pd.read_csv(os.path.join(data_dir, selected_file))\n    df['time'] = pd.to_datetime(df['timestamp']).dt.time\n    df['bpm'] = df['HEART_RATE(bpm)'].replace(0.0, np.nan)\n    df.dropna(subset=['bpm'], inplace=True)\n    # Seleção de parâmetros\n    series_col = st.selectbox(\"Selecione a Série Temporal\", [\"bpm\", \"magnitude\"])\n    calculation_method = st.selectbox(\"Método de Cálculo para Motion\", [\"norm\", \"enmo\"]) if series_col == \"magnitude\" else None",
+        "peekOfCode": "selected_file = st.selectbox(\"Selecione o arquivo CSV\", available_files)\n# Carregar o arquivo selecionado\nif selected_file:\n    df = pd.read_csv(os.path.join(data_dir, selected_file))\n    df['time'] = pd.to_datetime(df['timestamp']).dt.time\n    df['bpm'] = df['HEART_RATE(bpm)'].replace(0.0, np.nan)\n    df.dropna(subset=['bpm'], inplace=True)\n    # Seleção de parâmetros\n    series_col = st.selectbox(\"Select Time Series\", [\"bpm\", \"magnitude\"])\n    calculation_method = st.selectbox(\"Calculation method for Motion\", [\"norm\", \"enmo\"]) if series_col == \"magnitude\" else None",
         "detail": "main",
         "documentation": {}
     }

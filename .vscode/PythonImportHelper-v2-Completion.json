@@ -1,0 +1,214 @@
+[
+    {
+        "label": "streamlit",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "streamlit",
+        "description": "streamlit",
+        "detail": "streamlit",
+        "documentation": {}
+    },
+    {
+        "label": "plotly.graph_objects",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "plotly.graph_objects",
+        "description": "plotly.graph_objects",
+        "detail": "plotly.graph_objects",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "mode",
+        "importPath": "scipy.stats",
+        "description": "scipy.stats",
+        "isExtraImport": true,
+        "detail": "scipy.stats",
+        "documentation": {}
+    },
+    {
+        "label": "MiniBatchKMeans",
+        "importPath": "sklearn.cluster",
+        "description": "sklearn.cluster",
+        "isExtraImport": true,
+        "detail": "sklearn.cluster",
+        "documentation": {}
+    },
+    {
+        "label": "norm",
+        "importPath": "numpy.linalg",
+        "description": "numpy.linalg",
+        "isExtraImport": true,
+        "detail": "numpy.linalg",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "importPath": "time",
+        "description": "time",
+        "isExtraImport": true,
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "get_freq",
+        "kind": 2,
+        "importPath": "RSS_algo.main",
+        "description": "RSS_algo.main",
+        "peekOfCode": "def get_freq(df):\n    time_idx = df.time\n    mean_sample_interval = time_idx.rolling(2).aggregate(lambda ts: ts.values[1] - ts.values[0]).mean()\n    return 1 / mean_sample_interval\ndef get_clustered_profiles(T, m, num_clusters, selection_method=\"medoid\", num_nearest=3):\n    segments = np.array([T[i: i + m] for i in range(len(T) - m + 1)])\n    kmeans = MiniBatchKMeans(n_clusters=num_clusters, random_state=0).fit(segments)\n    centroids = kmeans.cluster_centers_\n    closest_snippets = []\n    for center_idx, center in enumerate(centroids):",
+        "detail": "RSS_algo.main",
+        "documentation": {}
+    },
+    {
+        "label": "get_clustered_profiles",
+        "kind": 2,
+        "importPath": "RSS_algo.main",
+        "description": "RSS_algo.main",
+        "peekOfCode": "def get_clustered_profiles(T, m, num_clusters, selection_method=\"medoid\", num_nearest=3):\n    segments = np.array([T[i: i + m] for i in range(len(T) - m + 1)])\n    kmeans = MiniBatchKMeans(n_clusters=num_clusters, random_state=0).fit(segments)\n    centroids = kmeans.cluster_centers_\n    closest_snippets = []\n    for center_idx, center in enumerate(centroids):\n        distances = np.linalg.norm(segments - center, axis=1)\n        if selection_method == \"medoid\":\n            closest_snippet_idx = np.argmin(distances)\n            closest_snippets.append(closest_snippet_idx)",
+        "detail": "RSS_algo.main",
+        "documentation": {}
+    },
+    {
+        "label": "find_snippet_positions",
+        "kind": 2,
+        "importPath": "RSS_algo.main",
+        "description": "RSS_algo.main",
+        "peekOfCode": "def find_snippet_positions(ts, snippet, subseq_size, tolerance=0):\n    positions = []\n    snippet_size = len(snippet)\n    i = 0\n    while i <= len(ts) - snippet_size:\n        window = ts[i:i + snippet_size]\n        # Verificar se todos os valores da janela estão dentro da tolerância em relação ao snippet\n        if np.all(np.abs(window - snippet) <= tolerance):\n            positions.append(i)\n            i += snippet_size",
+        "detail": "RSS_algo.main",
+        "documentation": {}
+    },
+    {
+        "label": "data_dir",
+        "kind": 5,
+        "importPath": "RSS_algo.main",
+        "description": "RSS_algo.main",
+        "peekOfCode": "data_dir = \"/home/gui/SnippetFinder/time_cuts\"\navailable_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]\nselected_file = st.selectbox(\"Selecione o arquivo CSV\", available_files)\n# Carregar o arquivo selecionado\nif selected_file:\n    df = pd.read_csv(os.path.join(data_dir, selected_file))\n    df['time'] = pd.to_datetime(df['timestamp']).dt.time\n    df['bpm'] = df['HEART_RATE(bpm)'].replace(0.0, np.nan)\n    df.dropna(subset=['bpm'], inplace=True)\n    # Seleção de parâmetros",
+        "detail": "RSS_algo.main",
+        "documentation": {}
+    },
+    {
+        "label": "available_files",
+        "kind": 5,
+        "importPath": "RSS_algo.main",
+        "description": "RSS_algo.main",
+        "peekOfCode": "available_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]\nselected_file = st.selectbox(\"Selecione o arquivo CSV\", available_files)\n# Carregar o arquivo selecionado\nif selected_file:\n    df = pd.read_csv(os.path.join(data_dir, selected_file))\n    df['time'] = pd.to_datetime(df['timestamp']).dt.time\n    df['bpm'] = df['HEART_RATE(bpm)'].replace(0.0, np.nan)\n    df.dropna(subset=['bpm'], inplace=True)\n    # Seleção de parâmetros\n    series_col = st.selectbox(\"Select Time Series\", [\"bpm\", \"magnitude\"])",
+        "detail": "RSS_algo.main",
+        "documentation": {}
+    },
+    {
+        "label": "selected_file",
+        "kind": 5,
+        "importPath": "RSS_algo.main",
+        "description": "RSS_algo.main",
+        "peekOfCode": "selected_file = st.selectbox(\"Selecione o arquivo CSV\", available_files)\n# Carregar o arquivo selecionado\nif selected_file:\n    df = pd.read_csv(os.path.join(data_dir, selected_file))\n    df['time'] = pd.to_datetime(df['timestamp']).dt.time\n    df['bpm'] = df['HEART_RATE(bpm)'].replace(0.0, np.nan)\n    df.dropna(subset=['bpm'], inplace=True)\n    # Seleção de parâmetros\n    series_col = st.selectbox(\"Select Time Series\", [\"bpm\", \"magnitude\"])\n    calculation_method = st.selectbox(\"Calculation method for Motion\", [\"norm\", \"enmo\"]) if series_col == \"magnitude\" else None",
+        "detail": "RSS_algo.main",
+        "documentation": {}
+    },
+    {
+        "label": "data_dir",
+        "kind": 5,
+        "importPath": "area_de_cobertura.cover_area",
+        "description": "area_de_cobertura.cover_area",
+        "peekOfCode": "data_dir = \"/home/gui/SnippetFinder/time_cuts\"\nst.title(\"Visualizador de Gráfico com Janela Deslizante e Busca de Snippet\")\n# Dados iniciais para visualização de hr e motion\nwith open(\"/home/gui/SnippetFinder/area_de_cobertura/dtw_results.json\", 'r') as f:\n    snippet_data = json.load(f)\n# Seleção de arquivo e categoria (hr ou motion) para o gráfico de barras\nfile_options = list(snippet_data.keys())\nfile_choice = st.selectbox(\"Selecione o arquivo para visualizar\", file_options)\ncategory_choice = st.selectbox(\"Selecione a categoria\", [\"hr\", \"motion\"])\n# Gráfico de barras para hr ou motion baseado na seleção",
+        "detail": "area_de_cobertura.cover_area",
+        "documentation": {}
+    },
+    {
+        "label": "file_options",
+        "kind": 5,
+        "importPath": "area_de_cobertura.cover_area",
+        "description": "area_de_cobertura.cover_area",
+        "peekOfCode": "file_options = list(snippet_data.keys())\nfile_choice = st.selectbox(\"Selecione o arquivo para visualizar\", file_options)\ncategory_choice = st.selectbox(\"Selecione a categoria\", [\"hr\", \"motion\"])\n# Gráfico de barras para hr ou motion baseado na seleção\nst.subheader(\"Visualização de Dados de hr e motion\")\nfig_bar = go.Figure()\nif file_choice and category_choice:\n    snippets = snippet_data[file_choice][category_choice]\n    for snippet, value in snippets.items():\n        fig_bar.add_trace(go.Bar(",
+        "detail": "area_de_cobertura.cover_area",
+        "documentation": {}
+    },
+    {
+        "label": "file_choice",
+        "kind": 5,
+        "importPath": "area_de_cobertura.cover_area",
+        "description": "area_de_cobertura.cover_area",
+        "peekOfCode": "file_choice = st.selectbox(\"Selecione o arquivo para visualizar\", file_options)\ncategory_choice = st.selectbox(\"Selecione a categoria\", [\"hr\", \"motion\"])\n# Gráfico de barras para hr ou motion baseado na seleção\nst.subheader(\"Visualização de Dados de hr e motion\")\nfig_bar = go.Figure()\nif file_choice and category_choice:\n    snippets = snippet_data[file_choice][category_choice]\n    for snippet, value in snippets.items():\n        fig_bar.add_trace(go.Bar(\n            x=[file_choice],",
+        "detail": "area_de_cobertura.cover_area",
+        "documentation": {}
+    },
+    {
+        "label": "category_choice",
+        "kind": 5,
+        "importPath": "area_de_cobertura.cover_area",
+        "description": "area_de_cobertura.cover_area",
+        "peekOfCode": "category_choice = st.selectbox(\"Selecione a categoria\", [\"hr\", \"motion\"])\n# Gráfico de barras para hr ou motion baseado na seleção\nst.subheader(\"Visualização de Dados de hr e motion\")\nfig_bar = go.Figure()\nif file_choice and category_choice:\n    snippets = snippet_data[file_choice][category_choice]\n    for snippet, value in snippets.items():\n        fig_bar.add_trace(go.Bar(\n            x=[file_choice],\n            y=[value],",
+        "detail": "area_de_cobertura.cover_area",
+        "documentation": {}
+    },
+    {
+        "label": "fig_bar",
+        "kind": 5,
+        "importPath": "area_de_cobertura.cover_area",
+        "description": "area_de_cobertura.cover_area",
+        "peekOfCode": "fig_bar = go.Figure()\nif file_choice and category_choice:\n    snippets = snippet_data[file_choice][category_choice]\n    for snippet, value in snippets.items():\n        fig_bar.add_trace(go.Bar(\n            x=[file_choice],\n            y=[value],\n            name=f\"{category_choice} - {snippet}\",\n            hoverinfo=\"y+name\",\n            marker=dict(line=dict(width=0.8))",
+        "detail": "area_de_cobertura.cover_area",
+        "documentation": {}
+    },
+    {
+        "label": "csv_files",
+        "kind": 5,
+        "importPath": "area_de_cobertura.cover_area",
+        "description": "area_de_cobertura.cover_area",
+        "peekOfCode": "csv_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]\ncsv_file_choice = st.selectbox(\"Selecione o arquivo CSV para visualizar\", csv_files)\n# Leitura do arquivo CSV selecionado e plotagem do gráfico completo\nif csv_file_choice:\n    df = pd.read_csv(os.path.join(data_dir, csv_file_choice))\n    df['date'] = pd.to_datetime(df['date']).dt.time\n    fig_full = go.Figure()\n    fig_full.add_trace(go.Scatter(x=df[\"date\"], y=df[\"HEART_RATE(bpm)\"], mode=\"lines\", name=\"Dados completos\"))\n    # Upload e busca de snippet\n    uploaded_file = st.file_uploader(\"Faça upload do arquivo .npy com o snippet de padrão para busca\", type=\"npy\")",
+        "detail": "area_de_cobertura.cover_area",
+        "documentation": {}
+    },
+    {
+        "label": "csv_file_choice",
+        "kind": 5,
+        "importPath": "area_de_cobertura.cover_area",
+        "description": "area_de_cobertura.cover_area",
+        "peekOfCode": "csv_file_choice = st.selectbox(\"Selecione o arquivo CSV para visualizar\", csv_files)\n# Leitura do arquivo CSV selecionado e plotagem do gráfico completo\nif csv_file_choice:\n    df = pd.read_csv(os.path.join(data_dir, csv_file_choice))\n    df['date'] = pd.to_datetime(df['date']).dt.time\n    fig_full = go.Figure()\n    fig_full.add_trace(go.Scatter(x=df[\"date\"], y=df[\"HEART_RATE(bpm)\"], mode=\"lines\", name=\"Dados completos\"))\n    # Upload e busca de snippet\n    uploaded_file = st.file_uploader(\"Faça upload do arquivo .npy com o snippet de padrão para busca\", type=\"npy\")\n    matches = []",
+        "detail": "area_de_cobertura.cover_area",
+        "documentation": {}
+    }
+]

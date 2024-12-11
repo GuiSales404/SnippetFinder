@@ -60,7 +60,7 @@ def find_snippet_positions(ts, snippet, subseq_size, tolerance=0):
     return positions
 
 # Interface do Streamlit
-st.title("Análise de Snippets com Visualização na Série Temporal Completa")
+st.title("Snippet Analysis with Full Time Series Visualization")
 
 # Listar arquivos na pasta 'time_cuts'
 data_dir = "/home/gui/SnippetFinder/time_cuts"
@@ -75,18 +75,18 @@ if selected_file:
     df.dropna(subset=['bpm'], inplace=True)
 
     # Seleção de parâmetros
-    series_col = st.selectbox("Selecione a Série Temporal", ["bpm", "magnitude"])
-    calculation_method = st.selectbox("Método de Cálculo para Motion", ["norm", "enmo"]) if series_col == "magnitude" else None
-    selection_method = st.selectbox("Método de Seleção dos Snippets", ["medoid", "mean", "mode"])
-    num_clusters = st.slider("Número de Clusters", 2, 20, 5)
-    num_nearest = st.slider("Número de Snippets Próximos (média)", 1, 10, 3) if selection_method == "mean" else None
-    k = st.slider("Número de Snippets (k)", 1, 10, 3)
-    subseq_size = st.slider("Tamanho do Subsequence", 5, 50, 15)
+    series_col = st.selectbox("Select Time Series", ["bpm", "magnitude"])
+    calculation_method = st.selectbox("Calculation method for Motion", ["norm", "enmo"]) if series_col == "magnitude" else None
+    selection_method = st.selectbox("Snippets Selection Method", ["medoid", "mean", "mode"])
+    num_clusters = st.slider("Number of Clusters", 2, 20, 5)
+    num_nearest = st.slider("Number of closest Snippets", 1, 10, 3) if selection_method == "mean" else None
+    k = st.slider("Number of Snippets(k)", 1, 10, 3)
+    subseq_size = st.slider("Subsequence Size", 5, 50, 15)
     
     # Slider para o valor de tolerância
-    tolerance = st.slider("Defina o valor de tolerância", 0, 20, 5)
+    tolerance = st.slider("Set the tolerance value", 0, 20, 5)
 
-    if st.button("Analisar"):
+    if st.button("Analyze"):
         # Seleção do método de cálculo para o motion
         if series_col == "magnitude":
             df["magnitude"] = df[["ACC_X(m/s^2)", "ACC_Y", "ACC_Z"]].apply(
@@ -137,20 +137,20 @@ if selected_file:
         comp_time = time() - start
 
         # Exibição das áreas de cobertura e tempo de computação
-        st.write(f"Tempo de Computação: {comp_time:.2f}s")
+        st.write(f"Computation Time: {comp_time:.2f}s")
 
         # Visualizar a área de cobertura para cada snippet
         fig_coverage_area = go.Figure()
         fig_coverage_area.add_trace(go.Bar(
             x=[f"Snippet {i}" for i in range(len(coverage_areas))],
             y=coverage_areas,
-            name="Área de Cobertura",
+            name="Coverage Area",
             marker_color="green"
         ))
         fig_coverage_area.update_layout(
-            title="Área de Cobertura para Cada Snippet (Interseção Mínima)",
+            title="Coverage Area for Each Snippet (Minimum Intersection)",
             xaxis_title="Snippet",
-            yaxis_title="Área de Cobertura (Interseção Mínima)",
+            yaxis_title="Coverage Area (Minimum Intersection)",
         )
         st.plotly_chart(fig_coverage_area, use_container_width=True)
 
@@ -164,9 +164,9 @@ if selected_file:
             ))
 
         fig_q_evolution.update_layout(
-            title="Evolução de Q (Cobertura Mínima) ao Longo das Iterações",
+            title="Evolution of Q (Minimum Coverage) Over Iterations",
             xaxis_title="Clusters",
-            yaxis_title="Distância",
+            yaxis_title="Distance",
         )
         st.plotly_chart(fig_q_evolution, use_container_width=True)
 
@@ -184,13 +184,13 @@ if selected_file:
         fig_time_coverage_direct.add_trace(go.Bar(
             x=[f"Snippet {i}" for i in range(len(time_coverages_direct))],
             y=time_coverages_direct,
-            name="Cobertura do Tempo (%) - Diretas",
+            name="Time Coverage (%) - Direct",
             marker_color="blue"
         ))
         fig_time_coverage_direct.update_layout(
-            title="Cobertura de Tempo para Cada Snippet (Correspondências Diretas)",
+            title="Time Coverage for Each Snippet (Direct Matches)",
             xaxis_title="Snippet",
-            yaxis_title="Percentual de Cobertura (%)",
+            yaxis_title="Coverage Percentage (%)",
             yaxis_range=[0, 100]
         )
         st.plotly_chart(fig_time_coverage_direct, use_container_width=True)
@@ -201,7 +201,7 @@ if selected_file:
         positions = find_snippet_positions(ts, selected_snippet, subseq_size, tolerance=tolerance)
 
         fig_full = go.Figure()
-        fig_full.add_trace(go.Scatter(x=df["time"], y=ts, mode="lines", name="Série Temporal Completa", line=dict(color="white")))
+        fig_full.add_trace(go.Scatter(x=df["time"], y=ts, mode="lines", name="Complete Time Serie", line=dict(color="white")))
 
         for pos in positions:
             match_dates = df["time"].iloc[pos:pos + subseq_size]
@@ -214,9 +214,9 @@ if selected_file:
             ))
 
         fig_full.update_layout(
-            title=f"Gráfico Completo com Correspondência do Snippet de Maior Área - {selected_file}",
+            title=f"Full Graph with Largest Area Snippet Match - {selected_file}",
             xaxis_title="time",
-            yaxis_title="Valor da Série Temporal",
+            yaxis_title="Time Serie Value",
             showlegend=True
         )
         st.plotly_chart(fig_full, use_container_width=True)

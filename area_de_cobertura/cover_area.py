@@ -6,11 +6,11 @@ import os
 import json
 
 # Diretório de dados e título
-data_dir = "/home/gui/snippets_test/time_cuts"
+data_dir = "/home/gui/SnippetFinder/time_cuts"
 st.title("Visualizador de Gráfico com Janela Deslizante e Busca de Snippet")
 
 # Dados iniciais para visualização de hr e motion
-with open("/home/gui/snippets_test/cover_area/dtw_results.json", 'r') as f:
+with open("/home/gui/SnippetFinder/area_de_cobertura/dtw_results.json", 'r') as f:
     snippet_data = json.load(f)
 
 # Seleção de arquivo e categoria (hr ou motion) para o gráfico de barras
